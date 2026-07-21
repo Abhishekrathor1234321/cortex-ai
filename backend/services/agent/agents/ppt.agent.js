@@ -2,8 +2,7 @@ import pptxgen from "pptxgenjs";
 import fs from "fs";
 import path from "path";
 import { getModel } from "../utils/model.js";
-import { uploadToS3 } from "../utils/uploadToS3.js";
-import { getDownloadUrl } from "../utils/getDownloadUrl.js";
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { deductCredits } from "../utils/deductCredits.js";
 import { checkAgentLimit } from "../config/agentRateLimit.js";
 
@@ -351,16 +350,11 @@ const buffer =
     outputType: "nodebuffer"
   });
 
-await uploadToS3(
-  buffer,
-  fileName,
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-);
-
 const downloadUrl =
-  await getDownloadUrl(
+  await uploadToCloudinary(
+    buffer,
     fileName,
-    24*60*60
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation"
   );
 
     return {
@@ -373,7 +367,7 @@ const downloadUrl =
 
 📥 [Download PPT](${downloadUrl})
 
-⏳ Link expires in 10 minutes.
+
 `
 };
   } catch (error) {
