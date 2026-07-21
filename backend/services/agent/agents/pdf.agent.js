@@ -1,8 +1,7 @@
 import PDFDocument from "pdfkit";
 import { getModel } from "../utils/model.js";
 
-import { uploadToS3 } from "../utils/uploadToS3.js";
-import { getDownloadUrl } from "../utils/getDownloadUrl.js";
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { checkAgentLimit } from "../config/agentRateLimit.js";
 import { deductCredits } from "../utils/deductCredits.js";
 
@@ -162,17 +161,7 @@ Rules:
     const pdfBuffer =
       Buffer.concat(chunks);
 
-    await uploadToS3(
-      pdfBuffer,
-      fileName,
-      "application/pdf"
-    );
-
-    const downloadUrl =
-      await getDownloadUrl(
-        fileName,
-        24*60*60
-      );
+  const downloadUrl = await uploadToCloudinary(pdfBuffer, fileName, "application/pdf");
 
     return {
 
@@ -185,7 +174,7 @@ response: `
 
 📥 [Download PDF](${downloadUrl})
 
-⏳ Link expires in 10 minutes.
+
 `.trim()
 
     };

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { getModel } from "../utils/model.js";
 
-import { uploadToS3 } from "../utils/uploadToS3.js";
-import { getDownloadUrl } from "../utils/getDownloadUrl.js";
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { checkAgentLimit } from "../config/agentRateLimit.js";
 import { deductCredits } from "../utils/deductCredits.js";
 
@@ -80,18 +79,12 @@ ${state.prompt}
     const fileName =
       `image-${Date.now()}.png`;
 
-    await uploadToS3(
-      imageBuffer,
-      fileName,
-      "image/png"
-    );
-
     const downloadUrl =
-      await getDownloadUrl(
-        fileName,
-        24*60*60
-      );
-
+  await uploadToCloudinary(
+    imageBuffer,
+    fileName,
+    "image/png"
+  );
     return {
 
       ...state,
@@ -103,8 +96,7 @@ ${state.prompt}
 
 📥 [Download Image](${downloadUrl})
 
-⏳ Link expires in 10 minutes.
-`
+
 
     };
 
