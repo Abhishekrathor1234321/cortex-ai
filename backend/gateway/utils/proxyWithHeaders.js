@@ -7,6 +7,10 @@ export const proxyWithUser =
   serviceUrl,
   {
 
+   proxyReqPathResolver: (req) => {
+     return req.url;
+   },
+
    proxyReqOptDecorator:
    (proxyReqOpts, srcReq)=>{
 
