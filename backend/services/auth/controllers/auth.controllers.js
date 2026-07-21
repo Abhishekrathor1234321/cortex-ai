@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { getAuth }
   from "firebase-admin/auth";
 import User from "../models/user.model.js";
-import redis from "../../../shared/redis/redis.js";
+import redis from "../utils/redis.js";
 import { app } from "../config/firebase.js";
 
 
