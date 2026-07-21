@@ -1,4 +1,4 @@
-import redis from "./utils/redis.js";
+import redis from "../utils/redis.js";
 
 
 export const protect =
