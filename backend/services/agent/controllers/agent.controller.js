@@ -1,4 +1,4 @@
-import redis from "../../../shared/redis/redis.js";
+import redis from "../utils/redis.js";
 import { graph } from "../graph/supervisor.graph.js";
 import { addMessage } from "../utils/memory.js";
 import axios from "axios"
