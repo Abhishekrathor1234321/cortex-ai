@@ -7,6 +7,8 @@ export const proxyWithUser =
   serviceUrl,
   {
 
+   timeout: 120000, // 120 seconds — Render free tier ko wake up hone ka time dene ke liye
+
    proxyReqPathResolver: (req) => {
      return req.url;
    },
@@ -34,6 +36,14 @@ export const proxyWithUser =
 
     return proxyReqOpts;
 
+   },
+
+   proxyErrorHandler: (err, res, next) => {
+     console.log("Proxy Error:", err.message);
+     return res.status(503).json({
+       success: false,
+       message: "Service temporarily unavailable, please try again in a moment (backend service is waking up)."
+     });
    }
 
   }
