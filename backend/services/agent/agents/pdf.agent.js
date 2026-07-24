@@ -68,7 +68,7 @@ Rules:
         .trim();
 
     const fileName =
-      `pdf-${Date.now()}.pdf`;
+      `pdf-${Date.now()}`;
 
     const doc =
       new PDFDocument({
